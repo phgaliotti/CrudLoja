@@ -92,4 +92,20 @@ public class UsuarioDAO {
 		return flagUsuarioAlterado;
 	}
 
+	public Usuario autenticaUsuario(String login, String password) {
+		Usuario usuario = null;
+		try {
+			try (Session session = HibernateUtil.openSession();){
+				Transaction transaction = session.beginTransaction();
+				TypedQuery<Usuario> query = session.createQuery("FROM Usuario WHERE login = :login and senha = :senha")
+						.setParameter("login", login).setParameter("senha", password);
+				usuario = query.getSingleResult();
+				transaction.commit();
+			}	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return usuario;
+	}
+
 }
