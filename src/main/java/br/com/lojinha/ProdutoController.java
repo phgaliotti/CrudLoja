@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
@@ -28,7 +29,13 @@ public class ProdutoController extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		index(request, response);
+		HttpSession session = request.getSession();
+		String autenticado = String.valueOf(session.getAttribute("autenticado"));
+		if (autenticado.equals("sim")){
+			index(request, response);
+		} else {
+			request.getRequestDispatcher("/index.html").forward(request, response);
+		}
 	}
 
 	public void index(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
