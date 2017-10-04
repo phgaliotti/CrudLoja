@@ -36,6 +36,15 @@ public class LoginController extends HttpServlet {
 		autenticaUsuario(request, response);
 	}
 	
+	protected boolean validaSessao(HttpServletRequest request){
+		HttpSession session = request.getSession();
+		Usuario usuario = (Usuario) session.getAttribute("usuario");
+		if (usuario != null){
+			return true;
+		}
+		return false;
+	}
+	
 	private void autenticaUsuario(HttpServletRequest request, HttpServletResponse response){
 		try {
 			String login = request.getParameter("login");

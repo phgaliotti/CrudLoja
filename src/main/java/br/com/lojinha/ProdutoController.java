@@ -19,6 +19,7 @@ import br.com.lojinha.model.Produto;
 public class ProdutoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ProdutoDAO produtoDAO;
+	private LoginController loginController;
 	
 	private ProdutoDAO getProdutoDAO(){
 		if (this.produtoDAO == null){
@@ -27,11 +28,18 @@ public class ProdutoController extends HttpServlet {
 		return this.produtoDAO;
 	}
 	
+	private LoginController getLoginController(){
+		if (this.loginController == null){
+			this.loginController = new LoginController();
+		}
+		return this.loginController;
+	}
+	
+	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		String autenticado = String.valueOf(session.getAttribute("autenticado"));
-		if (autenticado.equals("sim")){
+		boolean usuarioAutenticado = getLoginController().validaSessao(request);
+		if (usuarioAutenticado){
 			index(request, response);
 		} else {
 			request.getRequestDispatcher("/index.html").forward(request, response);
@@ -44,23 +52,29 @@ public class ProdutoController extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String action = request.getParameter("action");
-		
-		switch (action) {
-		case "addProduto":
-			addProduto(request, response);
-			break;
-		case "removeProduto":
-			removeProduto(request, response);
-			break;
-		case "buscaProduto":
-			buscaProduto(request, response);
-			break;
-		case "alteraProduto":
-			alteraProduto(request, response);
-			break;
+		boolean usuarioAutenticado = getLoginController().validaSessao(request);
+		if (usuarioAutenticado){
+
+			String action = request.getParameter("action");
+			
+			switch (action) {
+			case "addProduto":
+				addProduto(request, response);
+				break;
+			case "removeProduto":
+				removeProduto(request, response);
+				break;
+			case "buscaProduto":
+				buscaProduto(request, response);
+				break;
+			case "alteraProduto":
+				alteraProduto(request, response);
+				break;
+			}
+		} else {
+			request.getRequestDispatcher("/index.html").forward(request, response);
 		}
-		
+			
 	}
 	
 	private void addProduto(HttpServletRequest request, HttpServletResponse response)
