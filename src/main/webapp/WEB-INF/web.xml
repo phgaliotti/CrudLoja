@@ -9,6 +9,12 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
+  	<session-config>
+	    <session-timeout>
+	      20
+	    </session-timeout>
+	</session-config>
 
 	<error-page>
   		<exception-type>java.lang.Exception</exception-type>
