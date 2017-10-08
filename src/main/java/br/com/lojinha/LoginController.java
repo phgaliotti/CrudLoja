@@ -26,8 +26,17 @@ public class LoginController extends HttpServlet {
 	}
 	
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		autenticaUsuario(request, response);
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
+		String action = request.getParameter("action");
+		
+		switch (action) {
+		case "logout":
+			logout(request, response);
+			break;
+		default:
+			autenticaUsuario(request, response);
+			break;
+		}
 	}
 
 	
@@ -61,6 +70,18 @@ public class LoginController extends HttpServlet {
 			} else {
 				response.getWriter().write("falha");
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void logout(HttpServletRequest request, HttpServletResponse response){
+		try {
+			HttpSession session = request.getSession();
+			session.invalidate();
+			
+			response.sendRedirect("/lojinha/index.html");
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
