@@ -2,6 +2,10 @@ function mostraLogin() {
 	$("#containerLogin").css({
 		"display" : "block"
 	});
+	
+	$("#btnChamadaLogin").css({
+		"display" : "none"
+	});
 }
 
 function autenticaUsuario() {
