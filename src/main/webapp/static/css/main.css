@@ -1,0 +1,10 @@
+.bemVindoMenu {
+	float: right;
+    color: white;
+    margin: 25px 40px 0px;
+}
+
+#imageLogout {
+	margin-left: 100px;
+	cursor: pointer;
+}

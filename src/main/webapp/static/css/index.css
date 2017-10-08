@@ -1,0 +1,53 @@
+
+.container {
+	width: 100%; 
+	height: 100%;
+}
+
+#containerLogin {
+    position:fixed;
+    top: 45%;
+    left: 50%;
+    width:30em;
+    height:18em;
+    margin-top: -9em; /*set to a negative number 1/2 of your height*/
+    margin-left: -15em; /*set to a negative number 1/2 of your width*/
+    border: 1px solid #ccc;
+    background-color: #f3f3f3;
+}
+
+
+
+#containerLogin form {
+    padding: 10px;
+    background-color: white;
+}
+
+#containerLogin #loginTitle {
+    width: 100%;
+    height: 50px;
+    margin-bottom: 2em;
+   	padding: 15px;
+    background-color: #8282c3;
+    text-align: center;
+
+}
+
+#containerLogin span {
+	color: white;
+    font-size: large;
+}
+
+#containerLogin #btnLogin {
+	cursor: pointer;
+	width: 100%;
+    height: 50px;
+    margin-bottom: 2em;
+   	padding: 15px;
+    background-color: #28283c;
+    text-align: center;
+}
+
+#btnLogin:hover {
+	background-color: #b3b1b1 !important;
+}
